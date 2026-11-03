@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123456">
+<title>Louistrnc 💙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#123456;
+  --navy-deep:#091a2c;
+  --navy-mid:#1b4a78;
+  --navy-soft:#24578a;
+  --sky:#a7dbff;
+  --pink:#ffb6d3;
+  --butter:#ffe6a3;
+  --text:#f4f8fc;
+  --muted:#9fb6cc;
+  --red:#ff2f4f;
+  --line:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--navy-deep);color:var(--text);font-family:'Nunito',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+a{color:inherit}
+.view{display:none;max-width:480px;margin:0 auto;min-height:100vh;min-height:100dvh;position:relative}
+.view.active{display:block;animation:fade .5s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ================= LOCK ================= */
+#lock{max-width:none;background:var(--navy);overflow:hidden}
+#lock.active{display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.lock-bg{position:absolute;inset:0;background:url('bg.jpg') center 30%/cover no-repeat}
+.lock-bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(18,52,86,.15) 0%,rgba(18,52,86,.55) 38%,rgba(18,52,86,.96) 72%,#123456 100%)}
+.lock-top{position:relative;z-index:2;text-align:center;padding:0 24px;margin-bottom:auto;margin-top:9vh}
+.lock-top .tag{display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:700;font-size:13px;letter-spacing:.3px;border:1px solid rgba(255,255,255,.25)}
+.lock-box{position:relative;z-index:2;width:100%;max-width:360px;padding:0 26px calc(26px + env(safe-area-inset-bottom,0px));text-align:center}
+.lock-box h1{font-family:'Fredoka',sans-serif;font-weight:600;font-size:36px;margin:0 0 4px;letter-spacing:-.5px}
+.lock-box p{margin:0 0 20px;color:var(--sky);font-size:16px;font-weight:600}
+.dots{display:flex;gap:18px;justify-content:center;margin-bottom:8px}
+.dot{width:15px;height:15px;border-radius:50%;border:2px solid rgba(167,219,255,.8);transition:.18s}
+.dot.on{background:var(--butter);border-color:var(--butter);transform:scale(1.2);box-shadow:0 0 14px rgba(255,230,163,.7)}
+.warn{min-height:42px;color:#ffc6da;font-weight:800;font-size:14.5px;opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.warn.show{opacity:1}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 10px;max-width:300px;margin:0 auto}
+.key{width:70px;height:70px;justify-self:center;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);font-family:'Fredoka',sans-serif;font-size:26px;font-weight:500;transition:.12s}
+.key:active{background:rgba(255,230,163,.4);transform:scale(.92)}
+.key.ghost{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;font-size:22px}
+.shake{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(6px)}}
+
+/* ================= YT STYLE ================= */
+.yt{background:var(--navy-deep)}
+.topbar{position:sticky;top:0;z-index:20;height:56px;background:rgba(9,26,44,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:7px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:-.4px}
+.logo i{display:inline-grid;place-items:center;width:32px;height:22px;border-radius:7px;background:var(--red);font-style:normal;font-size:10px;box-shadow:0 3px 10px rgba(255,47,79,.4)}
+.topbar .ico{display:flex;gap:18px;font-size:19px}
+
+.banner{height:118px;margin:12px 14px 0;border-radius:18px;overflow:hidden;position:relative;background:var(--navy)}
+.banner img{width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(18,52,86,.55),rgba(255,182,211,.12))}
+.chan{display:flex;gap:16px;align-items:center;padding:18px 16px 4px}
+.avatar{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:center 30%;flex:none;border:3px solid var(--navy-deep);box-shadow:0 0 0 2px var(--sky)}
+.chan h2{margin:0;font-size:24px;font-weight:800;display:flex;align-items:center;gap:7px;letter-spacing:-.4px}
+.check{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#dbe8f4;color:#123456;font-size:10px;font-weight:900}
+.chan .meta{color:var(--muted);font-size:13.5px;margin-top:4px;line-height:1.45}
+.desc{padding:8px 16px 0;color:var(--muted);font-size:14px;line-height:1.45}
+.desc b{color:var(--text);cursor:pointer}
+.links{padding:6px 16px 14px;font-size:14px;font-weight:700;color:var(--sky)}
+.btns{display:flex;gap:10px;padding:0 16px}
+.subbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:42px;border-radius:21px;background:var(--navy);border:1px solid rgba(167,219,255,.25);font-weight:800;font-size:15px}
+.subbtn:active{background:var(--navy-mid)}
+.ytlink{display:flex;align-items:center;justify-content:center;gap:7px;height:42px;padding:0 18px;border-radius:21px;background:var(--red);font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 5px 16px rgba(255,47,79,.35)}
+.tabs{display:flex;gap:26px;overflow-x:auto;padding:18px 16px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:0 0 11px;color:var(--muted);font-weight:800;font-size:15.5px;white-space:nowrap;border-bottom:3px solid transparent}
+.tab.on{color:var(--text);border-color:var(--text)}
+
+.chips{display:flex;gap:8px;padding:14px 16px 4px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:7px 14px;border-radius:9px;background:rgba(255,255,255,.1);font-weight:700;font-size:13.5px;white-space:nowrap}
+.chip.on{background:var(--text);color:var(--navy)}
+
+.card{display:block;width:100%;text-align:left;padding:14px 0 6px}
+.card .thumb{position:relative;margin:0 12px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.card:active .thumb img{transform:scale(1.03)}
+.dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.8);border-radius:6px;padding:2px 6px;font-size:12px;font-weight:800}
+.cinfo{display:flex;gap:12px;padding:12px 14px 4px}
+.cinfo img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:center 30%;flex:none}
+.cinfo h3{margin:0;font-size:15.5px;line-height:1.3;font-weight:700}
+.cinfo p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.cinfo .dots3{margin-left:auto;color:var(--muted);font-size:20px;line-height:1;padding-left:6px}
+.foot{padding:36px 24px 130px;text-align:center;color:var(--muted);font-size:14px;line-height:1.5}
+
+/* ================= PLAYER ================= */
+.apanel{position:absolute;inset:0;background:var(--navy) center/cover no-repeat;display:grid;place-items:center}
+.apanel::before{content:"";position:absolute;inset:0;background:rgba(9,26,44,.5)}
+.apbtn{position:relative;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.92);color:#123456;font-size:22px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+body:not([data-view="player"]) .apbtn{width:38px;height:38px;font-size:15px}
+.apbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}
+.apbar i{display:block;height:100%;width:0;background:var(--red)}
+.apnow{position:absolute;left:12px;top:10px;font-size:12px;font-weight:800;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.yterr{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--navy);text-align:center;padding:12px;font-weight:800;font-size:14px;z-index:3}
+.yterr.show{display:flex}
+.yterr a{color:var(--sky);font-size:13px}
+#ytWrap{position:fixed;z-index:50;display:none;background:#000;overflow:hidden}
+body.has-player #ytWrap{display:block}
+#ytWrap iframe,#ytWrap #ytPlayer{width:100%;height:100%;border:0;display:block}
+body[data-view="player"] #ytWrap{top:0;left:50%;transform:translateX(-50%);width:min(100vw,480px);aspect-ratio:16/9}
+body:not([data-view="player"]) #ytWrap{bottom:14px;right:14px;width:190px;aspect-ratio:16/9;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.22)}
+.pspace{height:min(56.25vw,270px)}
+.pinfo{padding:12px 16px 2px}
+.pinfo h1{font-size:18.5px;line-height:1.3;margin:0 0 5px;font-weight:800;letter-spacing:-.2px}
+.pinfo .m{color:var(--muted);font-size:13px;font-weight:600}
+.prow{display:flex;align-items:center;gap:11px;padding:14px 16px 10px}
+.prow img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center 30%}
+.prow .n{flex:1;font-weight:800;font-size:15px;display:flex;flex-direction:column}
+.prow .n small{color:var(--muted);font-weight:600;font-size:12.5px}
+.pill{background:rgba(255,255,255,.1);border-radius:19px;padding:9px 15px;font-weight:800;font-size:14px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.pill:active{background:rgba(255,255,255,.2)}
+.pill.sub{background:var(--navy-mid)}
+.acts{display:flex;gap:8px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.acts::-webkit-scrollbar{display:none}
+.pill.yt-red{background:var(--red);box-shadow:0 4px 14px rgba(255,47,79,.35)}
+.dbox{margin:6px 16px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);font-size:14px;line-height:1.5}
+.dbox b{font-weight:800}
+.dbox .tags{color:var(--sky);margin-top:4px}
+.comments{margin:10px 16px;padding:14px;border-radius:14px;background:rgba(255,255,255,.07);font-size:14px;line-height:1.45}
+.comments>b{font-size:15.5px}
+.cm{display:flex;gap:10px;margin-top:12px}
+.cm .av{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:15px;background:var(--navy-mid)}
+.cm small{color:var(--muted);font-weight:700;display:block;margin-bottom:1px}
+.upnext{display:flex;gap:14px;align-items:center;margin:16px;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--navy-soft),var(--navy));border:1px solid rgba(167,219,255,.35);width:calc(100% - 32px);text-align:left;animation:pulse 2.4s infinite}
+.upnext .em{font-size:38px}
+.upnext b{display:block;font-size:17px;font-family:'Fredoka',sans-serif;font-weight:500}
+.upnext small{color:var(--sky);font-size:13px;font-weight:600}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(167,219,255,.13)}}
+.rec-h{padding:10px 16px 0;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:500}
+.back{padding:8px 16px;color:var(--sky);font-weight:800;font-size:14.5px}
+
+/* ================= ENVELOPE ================= */
+#mail{max-width:none;background:radial-gradient(ellipse at 50% 30%,var(--navy-soft) 0,var(--navy) 50%,var(--navy-deep) 100%);overflow:hidden}
+#mail.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:38px}
+#mail h2{font-family:'Fredoka',sans-serif;font-weight:500;font-size:30px;margin:0;position:relative;z-index:2}
+#mail .hint{font-family:'Caveat',cursive;font-size:25px;color:var(--butter);margin-top:-22px;position:relative;z-index:2}
+.env{position:relative;width:300px;height:204px;perspective:900px;cursor:pointer;filter:drop-shadow(0 22px 26px rgba(0,0,0,.45));animation:bob 3.2s ease-in-out infinite;z-index:2}
+.env.open{animation:none}
+@keyframes bob{50%{transform:translateY(-9px) rotate(-1.2deg)}}
+.env>div{position:absolute;inset:0}
+.e-back{background:#f0d9b0;border-radius:12px}
+.e-l{background:#ffeecf;clip-path:polygon(0 0,52% 52%,0 100%);border-radius:12px 0 0 12px}
+.e-r{background:#ffe6bf;clip-path:polygon(100% 0,48% 52%,100% 100%);border-radius:0 12px 12px 0}
+.e-b{background:#fff4dc;clip-path:polygon(0 100%,50% 40%,100% 100%);border-radius:0 0 12px 12px}
+.e-flap{background:#ffd9a0;clip-path:polygon(0 0,100% 0,50% 58%);height:100%;transform-origin:50% 0;transition:transform .6s ease,z-index 0s .3s;z-index:4;border-radius:12px 12px 0 0}
+.env.open .e-flap{transform:rotateX(180deg);z-index:1}
+.e-paper{background:#fffdf6;border-radius:6px;transition:transform .7s ease .35s;z-index:2;inset:8px 16px 22px!important}
+.env.open .e-paper{transform:translateY(-74px)}
+.e-front{z-index:3}
+.seal{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9ec2,#d93a76);display:grid;place-items:center;font-size:23px;z-index:5;box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 -3px 6px rgba(0,0,0,.2);transition:.3s}
+.env.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(5,16,30,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal.show{display:flex;animation:fade .3s}
+.paper-wrap{width:100%;max-width:420px}
+.paper{max-height:80vh;max-height:80dvh;overflow-y:auto;background:#fffaf0;background-image:repeating-linear-gradient(transparent 0 33px,#e9dec6 33px 34px);color:#3a3025;padding:28px 26px 20px;border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,.55);font-family:'Caveat',cursive;font-size:25px;line-height:34px;font-weight:500;text-align:left;animation:rise .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{transform:translateY(60vh) rotate(5deg)}to{transform:none}}
+.paper .to{font-weight:700;font-size:30px;margin:0 0 34px}
+.paper p{margin:0 0 34px}
+.paper .sign{margin:0;text-align:right;font-size:30px}
+.close{display:block;margin:18px auto 0;padding:11px 24px;border-radius:22px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-weight:800;font-size:15px}
+.heart{position:fixed;bottom:-30px;z-index:1;pointer-events:none;animation:float linear forwards;opacity:.75}
+@keyframes float{to{transform:translateY(-112vh) rotate(25deg);opacity:0}}
+
+/* ================= TOAST ================= */
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,30px);z-index:99;background:#f1f5f9;color:#123456;padding:12px 18px;border-radius:14px;font-weight:800;font-size:14px;opacity:0;pointer-events:none;transition:.3s;max-width:88vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body data-view="lock">
+
+<!-- 1. CODE -->
+<section class="view active" id="lock">
+  <div class="lock-bg"></div>
+  <div class="lock-top"><span class="tag">🔒 members only</span></div>
+  <div class="lock-box" id="lockBox">
+    <h1>Hold up, cutie 🛑</h1>
+    <p>Top secret. Enter the code to continue.</p>
+    <div class="dots" id="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="warn" id="warn"></div>
+    <div class="pad" id="pad"></div>
+  </div>
+</section>
+
+<!-- 2. CHANNEL -->
+<section class="view yt" id="home">
+  <div class="topbar"><div class="logo"><i>▶</i>LoveTube</div><div class="ico"><span>🔍</span><span>🔔</span></div></div>
+  <div class="banner"><img src="vid1.jpg" alt=""></div>
+  <div class="chan">
+    <img class="avatar" src="profile.jpg" alt="Louistrnc">
+    <div>
+      <h2>Louistrnc <span class="check">✓</span></h2>
+      <div class="meta">@Louistrnc · 30.7M subscribers<br>3 videos</div>
+    </div>
+  </div>
+  <div class="desc">Official YouTube channel of Boy Patrick, the cutest boy alive. Contains hugs, snacks and questionable jokes… <b id="more">more</b></div>
+  <div class="links">cuddles.com and 3 more links</div>
+  <div class="btns">
+    <button class="subbtn" id="sub">🔔 Subscribed ⌄</button>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab on">Home</button><button class="tab">Videos</button><button class="tab">Shorts</button><button class="tab">Live</button><button class="tab">Playlists</button>
+  </div>
+  <div class="chips"><span class="chip on">All</span><span class="chip">Hugs</span><span class="chip">Snacks</span><span class="chip">Us</span><span class="chip">Cringe</span></div>
+  <div id="list"></div>
+  <div class="foot">That's all, folks! 🥹<br>Tap a video, babe. Any video. They're all about us.</div>
+</section>
+
+<!-- 3. VIDEO PAGE -->
+<section class="view yt" id="player">
+  <div class="pspace"></div>
+  <div class="pinfo"><h1 id="pTitle"></h1><div class="m" id="pMeta"></div></div>
+  <div class="prow">
+    <img src="profile.jpg" alt="">
+    <div class="n">Louistrnc<small>30.7M subscribers</small></div>
+    <button class="pill sub" id="sub2">Subscribed</button>
+  </div>
+  <div class="acts">
+    <button class="pill" id="like">👍 1.2M</button>
+    <button class="pill" data-toast="Shared with the whole world 🌍 (just kidding)">↗ Share</button>
+    <button class="pill" data-toast="Saved to 'Boyfriend material' playlist 💙">＋ Save</button>
+  </div>
+  <div class="dbox"><b id="dViews"></b><br>Our song is playing in the background of our lives. Please enjoy responsibly.<div class="tags">#us #cuddles #nosnacksnofriends</div></div>
+  <div class="comments">
+    <b>Comments · 3</b>
+    <div class="cm"><div class="av">📌</div><div><small>@Louistrnc · pinned by creator</small>You're stuck with me now. No refunds.</div></div>
+    <div class="cm"><div class="av">🥰</div><div><small>@your-biggest-fan</small>Who is this cutie?? Asking for a friend (the friend is me).</div></div>
+    <div class="cm"><div class="av">🐦</div><div><small>@random-pigeon</small>Coo coo. (Translation: get married already.)</div></div>
+  </div>
+  <button class="upnext" id="next">
+    <span class="em">💌</span>
+    <span><b>Up next: a letter for you</b><small>Tap to open</small></span>
+  </button>
+  <div class="rec-h">More from Louistrnc</div>
+  <div id="recs"></div>
+  <div style="height:220px"></div>
+</section>
+
+<!-- 4. ENVELOPE -->
+<section class="view" id="mail">
+  <h2>You've got mail 💌</h2>
+  <div class="env" id="env">
+    <div class="e-back"></div>
+    <div class="e-paper"></div>
+    <div class="e-l e-front"></div>
+    <div class="e-r e-front"></div>
+    <div class="e-b e-front"></div>
+    <div class="e-flap"></div>
+    <div class="seal">💗</div>
+  </div>
+  <div class="hint" id="hint">tap the envelope</div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="paper-wrap">
+    <div class="paper">
+      <p class="to">For you, love 💙</p>
+      <p>hey love, i just wanna remind you how much you mean to me. i'm really grateful to have you in my life, and honestly, i don't think you realize how happy you make me just by being yourself. you don't have to do anything special to make me smile, sometimes just talking to you is already enough to make my day better.</p>
+      <p>i love the little things about you, even the things you probably don't notice about yourself. i love hearing about your day, listening to your random stories, laughing at stupid things with you, and just having you around. you make ordinary days feel a little more special.</p>
+      <p class="sign">💙</p>
+    </div>
+    <button class="close" id="closeLetter">close letter</button>
+  </div>
+</div>
+
+<div id="ytWrap"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var CODE = '0917';
+  var VIDEO_ID = 'viW0M5R2BLo';
+  var $ = function(id){return document.getElementById(id)};
+
+  function go(name){
+    document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});
+    $(name).classList.add('active');
+    document.body.setAttribute('data-view', name);
+    window.scrollTo(0,0);
+    if(name==='mail'||name==='lock') startHearts(); else stopHearts();
+  }
+  var toastT;
+  function toast(msg){
+    var t=$('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show')},2300);
+  }
+
+  /* ---- lock ---- */
+  var entry='';
+  var pad=$('pad');
+  ['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(function(k){
+    var b=document.createElement('button');
+    b.className='key'+(k===''||k==='⌫'?' ghost':'');
+    b.textContent=k;
+    if(k==='') b.disabled=true;
+    else b.addEventListener('click',function(){press(k)});
+    pad.appendChild(b);
+  });
+  function paint(){
+    document.querySelectorAll('#dots .dot').forEach(function(d,i){d.classList.toggle('on',i<entry.length)});
+  }
+  function press(k){
+    if(!$('lock').classList.contains('active')) return;
+    var w=$('warn');
+    if(k==='⌫'){entry=entry.slice(0,-1);paint();return;}
+    if(entry.length>=4) return;
+    entry+=k; paint(); w.classList.remove('show');
+    if(entry.length===4){
+      if(entry===CODE){
+        setTimeout(function(){go('home');entry='';paint();},320);
+      }else{
+        w.textContent='Wrong code! 🚨 Think harder, babe. Think about us 💙';
+        w.classList.add('show');
+        var box=$('lockBox'); box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+        if(navigator.vibrate) navigator.vibrate(200);
+        setTimeout(function(){entry='';paint();},450);
+      }
+    }
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key>='0'&&e.key<='9') press(e.key);
+    else if(e.key==='Backspace') press('⌫');
+  });
+
+  /* ---- videos ---- */
+  var VIDEOS=[
+    {img:'vid1.jpg',dur:'3:07',title:'POV: I hug you from behind and you are STILL scrolling your phone 📱',views:'2.4M views',ago:'3 days ago'},
+    {img:'vid2.jpg',dur:'0:42',title:'Flowers + hiding our faces = peak romance (we are so awkward) 💐',views:'1.1M views',ago:'1 week ago'},
+    {img:'vid3.jpg',dur:'5:16',title:'Cute couple photo (blurry edition). Blame the camera, not us 📸',views:'999K views',ago:'2 weeks ago'}
+  ];
+  function makeCard(v, cls){
+    var r=document.createElement('button');
+    r.className='card';
+    r.innerHTML='<div class="thumb"><img src="'+v.img+'" alt=""><span class="dur">'+v.dur+'</span></div>'+
+      '<div class="cinfo"><img src="profile.jpg" alt=""><div><h3>'+v.title+'</h3><p>Louistrnc · '+v.views+' · '+v.ago+'</p></div><span class="dots3">⋮</span></div>';
+    r.addEventListener('click',function(){openVideo(v)});
+    return r;
+  }
+  VIDEOS.forEach(function(v){$('list').appendChild(makeCard(v))});
+
+  $('more').addEventListener('click',function(){toast('...and a LOT of love 😌💙')});
+  document.querySelectorAll('#tabs .tab').forEach(function(t,i){
+    t.addEventListener('click',function(){ if(i!==0) toast('Nothing here yet, just us 😌'); });
+  });
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');
+    });
+  });
+  function noUnsub(){toast("Nice try, but you can't unsubscribe from me 😌💙")}
+  $('sub').addEventListener('click',noUnsub);
+  $('sub2').addEventListener('click',noUnsub);
+  $('like').addEventListener('click',function(){this.textContent='👍 1.2M +1';toast('Liked. Good choice 😎')});
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click',function(){toast(b.getAttribute('data-toast'))});
+  });
+
+  /* ---- player ---- */
+  var playerMade=false, ytReady=false, ytp=null;
+  var isWeb=/^https?:/.test(location.protocol);
+  var tag=document.createElement('script'); tag.src='https://www.youtube.com/iframe_api'; document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady=function(){ytReady=true};
+  function showErr(){ $('ytErr').classList.add('show'); }
+  function makePlayer(){
+    var wrap=$('ytWrap');
+    wrap.innerHTML='<div id="ytPlayer"></div><div class="yterr" id="ytErr">This video is shy and can\'t play here 😭<a href="https://youtu.be/'+VIDEO_ID+'" target="_blank" rel="noopener">Watch it on YouTube</a></div>';
+    document.body.classList.add('has-player');
+    if(ytReady && window.YT && YT.Player){
+      var vars={autoplay:1,playsinline:1,rel:0,modestbranding:1};
+      if(isWeb) vars.origin=location.origin;
+      ytp=new YT.Player('ytPlayer',{videoId:VIDEO_ID,width:'100%',height:'100%',playerVars:vars,
+        events:{onReady:function(e){try{e.target.playVideo()}catch(x){}},onError:showErr}});
+    }else{
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube.com/embed/'+VIDEO_ID+'?autoplay=1&playsinline=1&rel=0&modestbranding=1';
+      f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen=true; f.title='Our song';
+      $('ytPlayer').replaceWith(f);
+    }
+  }
+  var vid=null, vidFailed=false;
+  function makeVideo(v){
+    var wrap=$('ytWrap');
+    wrap.innerHTML='';
+    var el=document.createElement('video');
+    el.src='song.mp4'; el.setAttribute('playsinline',''); el.setAttribute('webkit-playsinline','');
+    el.controls=true; el.loop=true; el.preload='auto'; el.poster=v.img;
+    el.style.cssText='width:100%;height:100%;object-fit:cover;background:#000;display:block';
+    wrap.appendChild(el);
+    document.body.classList.add('has-player');
+    vid=el;
+    function fail(){ if(vidFailed) return; vidFailed=true; vid=null; makeAudio(v); }
+    el.addEventListener('error',fail);
+    var p=el.play();
+    if(p&&p.catch) p.catch(function(err){ if(!(err&&err.name==='NotAllowedError')) fail(); });
+  }
+  var audio=null, audioFailed=false;
+  function makeAudio(v){
+    var wrap=$('ytWrap');
+    wrap.innerHTML='<div class="apanel" id="apanel"><span class="apnow">🎵 now playing</span><button class="apbtn" id="apb">⏸</button><div class="apbar"><i id="apfill"></i></div></div>';
+    $('apanel').style.backgroundImage='url('+v.img+')';
+    document.body.classList.add('has-player');
+    audio=new Audio('song.mp3'); audio.loop=true; audio.preload='auto';
+    function fail(){ if(audioFailed) return; audioFailed=true; audio=null; makePlayer(); }
+    audio.addEventListener('error',fail);
+    audio.addEventListener('timeupdate',function(){
+      if(audio&&audio.duration) $('apfill').style.width=(audio.currentTime/audio.duration*100)+'%';
+    });
+    $('apb').addEventListener('click',function(){
+      if(!audio) return;
+      if(audio.paused){audio.play();this.textContent='⏸'}else{audio.pause();this.textContent='▶'}
+    });
+    var p=audio.play();
+    if(p&&p.catch) p.catch(function(err){
+      if(err&&err.name==='NotAllowedError'){ $('apb').textContent='▶'; } else fail();
+    });
+  }
+  function openVideo(v){
+    $('pTitle').textContent=v.title;
+    $('pMeta').textContent=v.views+' · '+v.ago;
+    $('dViews').textContent=v.views+'  '+v.ago;
+    var recs=$('recs'); recs.innerHTML='';
+    VIDEOS.forEach(function(x){ if(x!==v) recs.appendChild(makeCard(x)); });
+    go('player');
+    if(!playerMade){ playerMade=true; makeVideo(v); }
+    else if(vid){ try{vid.play()}catch(x){} }
+    else if(audio){ var ap=$('apanel'); if(ap) ap.style.backgroundImage='url('+v.img+')'; }
+    else if(ytp && ytp.playVideo){ try{ytp.playVideo()}catch(x){} }
+  }
+  $('next').addEventListener('click',function(){go('mail')});
+
+  /* ---- envelope ---- */
+  var opened=false;
+  $('env').addEventListener('click',function(){
+    var env=$('env');
+    if(!opened){ opened=true; env.classList.add('open'); setTimeout(showLetter,1250); }
+    else showLetter();
+  });
+  function showLetter(){
+    $('modal').classList.add('show');
+    $('hint').textContent='tap the envelope to read it again 💙';
+  }
+  $('closeLetter').addEventListener('click',function(){$('modal').classList.remove('show')});
+  $('modal').addEventListener('click',function(e){if(e.target===$('modal'))$('modal').classList.remove('show')});
+
+  /* ---- floating hearts ---- */
+  var heartT;
+  function startHearts(){
+    stopHearts();
+    heartT=setInterval(function(){
+      var h=document.createElement('div');
+      h.className='heart';
+      h.textContent=['💙','💗','✨','💖'][Math.floor(Math.random()*4)];
+      h.style.left=Math.random()*100+'vw';
+      h.style.fontSize=(14+Math.random()*18)+'px';
+      h.style.animationDuration=(6+Math.random()*5)+'s';
+      document.body.appendChild(h);
+      setTimeout(function(){h.remove()},11500);
+    },650);
+  }
+  function stopHearts(){clearInterval(heartT)}
+  startHearts();
+})();
+</script>
+</body>
+</html>
